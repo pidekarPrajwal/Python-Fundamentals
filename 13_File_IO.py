@@ -20,3 +20,4 @@ File
             t - text mode {default }
             + - opens disk file for update (r & w)
 """
+   
