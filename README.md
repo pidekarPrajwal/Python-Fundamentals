@@ -12,7 +12,14 @@ A structured, topic-wise reference guide to Python programming concepts, featuri
 5. [Module 5: Conditional Statements](#5-conditional-statements)
 6. [Module 6: Loops & Iteration](#6-loops--iteration)
 7. [Module 7: Functions](#7-functions)
-8. [Requirements & Execution](#-requirements--execution)
+8. [Module 8: Strings & String Formatting](#8-strings--string-formatting)
+9. [Module 9: Lists & Tuples](#9-lists--tuples)
+10. [Module 10: Dictionaries & Sets](#10-dictionaries--sets)
+11. [Module 11: Object-Oriented Programming (OOP) - Part 1](#11-object-oriented-programming-oop---part-1)
+12. [Module 12: Object-Oriented Programming (OOP) - Part 2](#12-object-oriented-programming-oop---part-2)
+13. [Module 13: File Input/Output (File I/O)](#13-file-inputoutput-file-io)
+14. [Module 14: Exception Handling, List Comprehension & JSON](#14-exception-handling-list-comprehension--json)
+15. [Requirements & Execution](#-requirements--execution)
 
 ---
 
@@ -275,6 +282,327 @@ hello()  # Executes the function -> Output: Hello world
 
 ---
 
+### 8. Strings & String Formatting
+**File:** [`08_Strings.py`](file:///d:/AIML/01_PYTHON/08_Strings.py)
+
+#### 📝 Description
+Covers string fundamentals in Python, string immutability, operations such as length calculation, concatenation, indexing, slicing, iteration, and formatting methods (`.format()` and f-strings).
+
+#### 💡 Key Concepts
+- **String Immutability:** Once defined, string characters cannot be modified in place.
+- **Length & Concatenation:** `len()` returns character count (including whitespace); `+` operator joins multiple strings.
+- **Indexing & Slicing:** 
+  - 0-indexed positioning accessed via `str[index]`.
+  - Slicing via `str[start_idx : end_idx]` extracts substrings where `end_idx` is non-inclusive.
+- **String Formatting:** Dynamic string interpolation using `.format()` and modern `f-strings` (`f"{variable}"`).
+
+#### 💻 Code Example
+```python
+word = "Python"
+word2 = "is good "
+
+# String Length & Concatenation
+print(len(word))                 # Output: 6
+print(word + " " + word2)        # Output: Python is good 
+
+# Indexing & Slicing
+print(word[2])                   # Output: t
+print(word[2:4])                 # Output: th (end index is non-inclusive)
+print(word[2:])                  # Output: thon
+
+# String Formatting (.format() and f-strings)
+a, b, c = 5, 9, 14
+print("Sum of {} and {} is {}".format(a, b, c))  # str.format() method
+print(f"Sum of {a} and {b} is {c}")              # Modern f-string interpolation
+```
+
+---
+
+### 9. Lists & Tuples
+**File:** [`09_List_&_Tuple.py`](file:///d:/AIML/01_PYTHON/09_List_&_Tuple.py)
+
+#### 📝 Description
+Explores Python's built-in ordered sequence data structures: mutable `list` and immutable `tuple`. Details indexing, slicing, utility methods, search loops, and key differences.
+
+#### 💡 Key Concepts
+- **List (`[]`):** Ordered, mutable collection that can store multiple data types (integers, strings, floats, nested lists).
+- **List Methods:**
+  - `append(val)`: Adds a single element to the end of the list.
+  - `insert(idx, val)`: Inserts an element at the specified index.
+  - `sort()` / `sort(reverse=True)`: Sorts elements in ascending or descending order.
+  - `reverse()`: Reverses the elements of the list in place.
+- **Tuple (`()`):** Ordered, immutable sequence. Values cannot be altered after creation.
+  - **Single Element Tuple:** Must include a trailing comma `(val,)` to be recognized as a tuple rather than a scalar type.
+- **Tuple Methods:**
+  - `index(val)`: Returns the index of the first occurrence of `val`.
+  - `count(val)`: Returns the total count of occurrences of `val`.
+
+#### 💻 Code Example
+```python
+# Lists (Mutable)
+nums = [1, 2, 3]
+nums.append(4)                   # Output: [1, 2, 3, 4]
+nums.insert(2, 10)               # Output: [1, 2, 10, 3, 4]
+nums.sort()                      # Output: [1, 2, 3, 4, 10]
+nums.sort(reverse=True)          # Output: [10, 4, 3, 2, 1]
+
+# Tuples (Immutable)
+tup = (1, 2, 3, 2, 5)
+single_tup = (1,)                # Trailing comma creates a tuple (<class 'tuple'>)
+print(tup[2])                    # Output: 3
+print(tup.index(2))              # Output: 1 (first appearance index)
+print(tup.count(2))              # Output: 2 (total occurrences)
+```
+
+---
+
+### 10. Dictionaries & Sets
+**File:** [`10_Dict_&_Set.py`](file:///d:/AIML/01_PYTHON/10_Dict_&_Set.py)
+
+#### 📝 Description
+Covers key-value mapping structures (`dict`) and unique element collections (`set`), highlighting key uniqueness, safe value lookup methods, set immutability rules, and mathematical set operations.
+
+#### 💡 Key Concepts
+- **Dictionary (`{key: value}`):** Mutable, unordered collection of unique key-value pairs.
+- **Dictionary Methods:**
+  - `d.keys()`: Returns all dictionary keys.
+  - `d.values()`: Returns all dictionary values.
+  - `d.items()`: Returns key-value pairs as tuples `(key, value)`.
+  - `d.get(key)`: Safely retrieves value without raising `KeyError` if key is missing (returns `None`).
+  - `d.update({key: val})`: Updates existing key or adds a new key-value pair.
+- **Set (`{val1, val2}`):** Unordered collection of unique, immutable elements (duplicates are automatically eliminated).
+  - Empty set creation requires `set()` syntax (`{}` creates an empty dictionary).
+- **Set Methods:**
+  - `s.add(val)`: Adds an element.
+  - `s.remove(val)`: Removes a specific element.
+  - `s.pop()`: Removes and returns an arbitrary element.
+  - `s.union(set2)`: Returns a new set containing all elements from both sets.
+  - `s.intersection(set2)`: Returns a new set containing only common elements.
+
+#### 💻 Code Example
+```python
+# Dictionary Usage & Safe Retrieval
+student = {
+    "name": "Prajwal",
+    "age": 24,
+    "marks": [85, 90, 95]
+}
+print(student.get("name"))       # Output: Prajwal
+print(student.get("grade"))      # Output: None (prevents KeyError crash)
+student.update({"city": "Pune"})
+
+# Set Operations (Union & Intersection)
+set_a = {1, 2, 3, 4}
+set_b = {3, 4, 5, 6}
+
+print(set_a.intersection(set_b)) # Output: {3, 4} (elements present in both)
+print(set_a.union(set_b))        # Output: {1, 2, 3, 4, 5, 6} (all unique elements)
+```
+
+---
+
+### 11. Object-Oriented Programming (OOP) - Part 1
+**File:** [`11_OOPs_Part-01.py`](file:///d:/AIML/01_PYTHON/11_OOPs_Part-01.py)
+
+#### 📝 Description
+Introduces the core concepts of Object-Oriented Programming (OOP) in Python, focusing on Class definitions, Object creation, Class vs. Instance attributes, and Constructor initialization with `__init__`.
+
+#### 💡 Key Concepts
+- **Class:** A user-defined blueprint or template for creating objects. Defined using the `class` keyword with `PascalCase` naming convention.
+- **Object (Instance):** A concrete instance of a class that encapsulates real data and operations defined by its class blueprint.
+- **`__init__()` Constructor Method:** A special method automatically called whenever a new instance of a class is instantiated. Used for setting up initial state.
+- **`self` Parameter:** A reference to the current instance of the class. It binds attributes to the specific object instance created.
+- **Types of Constructors:**
+  - **Default Constructor:** Accepts only `self` without additional parameters.
+  - **Parameterized Constructor:** Accepts `self` along with custom arguments to initialize unique attributes per instance.
+
+#### 💻 Code Example
+```python
+# Defining a Class with Class Attributes (Blueprint)
+class Student:
+    subject = "Python"           # Class attribute (shared by all instances)
+    college = "ABCED"
+
+# Instantiating Objects
+stu1 = Student()
+stu2 = Student()
+print(stu1.subject)              # Output: Python
+print(stu2.college)              # Output: ABCED
+
+# Class with Parameterized Constructor (__init__)
+class Students:
+    def __init__(self, name):
+        self.name = name         # Instance variable unique to each instance
+
+# Initializing distinct objects with unique data
+stu11 = Students("Rahul")
+stu22 = Students("Raj")
+
+print(stu11.name)                # Output: Rahul
+print(stu22.name)                # Output: Raj
+```
+
+---
+
+### 12. Object-Oriented Programming (OOP) - Part 2
+**File:** [`12_OOPs_Part-02.py`](file:///d:/AIML/01_PYTHON/12_OOPs_Part-02.py)
+
+#### 📝 Description
+Explores the Four Pillars of Object-Oriented Programming (Encapsulation, Abstraction, Inheritance, and Polymorphism) and their implementation details in Python.
+
+#### 💡 The 4 Pillars of OOP
+| Pillar | Core Concept | Python Implementation & Usage |
+| :--- | :--- | :--- |
+| **1. Encapsulation** | Wrapping attributes and methods into a single unit (class) while restricting direct access to internal state. | Controlled via access specifiers: Public (`attr`), Protected (`_attr`), Private (`__attr`). Private data is accessed using Getter & Setter methods. |
+| **2. Abstraction** | Hiding internal implementation details and exposing only essential interfaces to the user. | Simplifies complex system interaction by providing high-level methods while hiding complex execution logic. |
+| **3. Inheritance** | Deriving attributes and methods from a parent (base) class into child (derived) classes to promote code reuse. | Supports Single-level, Multi-level, and Multiple inheritance. Uses `super()` to invoke parent class constructors/methods. |
+| **4. Polymorphism** | Allowing the same method or operator to behave differently depending on the calling object or data context. | Achieved via Method Overriding (child class redefines parent method) and Duck Typing. |
+
+#### 💡 Access Control & Inheritance Rules
+- **Public Attributes:** Accessible from inside and outside the class.
+- **Protected Attributes (`_name`):** Intended for access within the class and its subclasses (convention).
+- **Private Attributes (`__name`):** Accessible only inside the class where defined. Python uses name mangling to prevent direct external access.
+- **`super()` Function:** Allows a child class to call methods or constructor of its parent class.
+
+#### 💻 Code Example
+```python
+# 1. Encapsulation (Private attributes & Getter/Setter)
+class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner          # Public attribute
+        self.__balance = balance    # Private attribute (__ prefix)
+
+    def get_balance(self):          # Getter method
+        return self.__balance
+
+    def deposit(self, amount):      # Setter method
+        if amount > 0:
+            self.__balance += amount
+
+# 2. Inheritance & super()
+class Parent:
+    def greet(self):
+        print("Hello from Parent Class")
+
+class Child(Parent):               # Single-Level Inheritance
+    def greet(self):
+        super().greet()             # Call parent method using super()
+        print("Hello from Child Class")
+
+# 3. Polymorphism (Method Overriding)
+class Animal:
+    def speak(self):
+        print("Animal sound")
+
+class Dog(Animal):
+    def speak(self):                # Overriding parent class method
+        print("Woof! Woof!")
+
+# Execution Demonstration
+acc = BankAccount("Prajwal", 5000)
+acc.deposit(1500)
+print("Balance:", acc.get_balance()) # Output: Balance: 6500
+
+child = Child()
+child.greet()                        # Output: Parent greeting then Child greeting
+
+dog = Dog()
+dog.speak()                          # Output: Woof! Woof!
+```
+
+---
+
+### 13. File Input/Output (File I/O)
+**File:** [`13_File_IO.py`](file:///d:/AIML/01_PYTHON/13_File_IO.py)
+
+#### 📝 Description
+Details file handling mechanisms in Python, explaining how to open, read, write, append, and properly close files on the filesystem along with mode options.
+
+#### 💡 File Modes Summary
+| Mode | Name | Behavior & Description |
+| :--- | :--- | :--- |
+| `'r'` | Read | Default mode. Opens file for reading; throws `FileNotFoundError` if file does not exist. |
+| `'w'` | Write | Opens file for writing. Overwrites existing contents or creates a new file. |
+| `'a'` | Append | Opens file for writing. Appends new data to the end of the file without overwriting existing content. |
+| `'x'` | Exclusive Creation | Creates a new file for writing; fails if the file already exists. |
+| `'b'` | Binary | Binary mode (e.g., `'rb'`, `'wb'`) for non-text files like images or executables. |
+| `'t'` | Text | Default text mode. |
+| `'+'` | Updating | Opens disk file for updating (reading and writing simultaneously like `'r+'` or `'w+'`). |
+
+#### 💻 Code Example
+```python
+# Writing to a file (overwrites existing file or creates new)
+file = open("data.txt", "w")
+file.write("Python File I/O operations.\n")
+file.close()                        # Always close files after opening!
+
+# Appending text to an existing file
+file = open("data.txt", "a")
+file.write("Adding a new line to file.\n")
+file.close()
+
+# Reading content from a file
+file = open("data.txt", "r")
+content = file.read()
+print(content)
+file.close()
+
+# Recommended Practice: Using 'with' context manager (auto-closes file)
+with open("data.txt", "r") as f:
+    data = f.read()
+    print("Read via context manager:", data)
+```
+
+---
+
+### 14. Exception Handling, List Comprehension & JSON
+**File:** [`14_Exception_handling.py`](file:///d:/AIML/01_PYTHON/14_Exception_handling.py)
+
+#### 📝 Description
+Covers robust error handling using `try-except-else-finally` blocks, concise sequence transformations with list comprehensions, and data serialization using the `json` module.
+
+#### 💡 Key Concepts
+- **Exception Handling Blocks:**
+  - `try`: Contains code that might raise an exception.
+  - `except`: Catches and handles specific exceptions without stopping program execution.
+  - `else`: Executes if no exceptions were raised in the `try` block.
+  - `finally`: Executes guaranteed cleanup code regardless of whether an exception occurred.
+- **List Comprehension:** Concise syntax for creating new lists based on existing iterables: `[output_expr for item in iterable if condition]`.
+- **JSON Processing (`json` module):**
+  - `json.loads()`: Parses a JSON string into a Python dictionary.
+  - `json.dumps()`: Serializes a Python dictionary into a JSON formatted string.
+  - `json.load()` / `json.dump()`: Serializes/deserializes directly to/from file streams.
+
+#### 💻 Code Example
+```python
+import json
+
+# 1. Exception Handling
+try:
+    num = int(input("Enter a number: "))
+    result = 10 / num
+except ZeroDivisionError:
+    print("Cannot divide by zero!")
+except ValueError:
+    print("Invalid integer input!")
+else:
+    print("Result is:", result)
+finally:
+    print("Execution finished.")
+
+# 2. List Comprehension
+squares = [i * i for i in range(6)]                  # Output: [0, 1, 4, 9, 16, 25]
+odd_squares = [i * i for i in range(6) if i % 2 != 0] # Output: [1, 9, 25]
+
+# 3. JSON Serialization & Deserialization
+data = {"name": "Prajwal", "subject": "Python"}
+json_string = json.dumps(data)                       # Dict -> JSON string
+parsed_data = json.loads(json_string)                 # JSON string -> Dict
+print(parsed_data["name"])                           # Output: Prajwal
+```
+
+---
+
 ## 🚀 Requirements & Execution
 
 ### Prerequisites
@@ -290,4 +618,11 @@ python 04_Taking_Input.py
 python 05_conditional_statment.py
 python 06_Loops.py
 python 07_Functions.py
+python 08_Strings.py
+python 09_List_&_Tuple.py
+python 10_Dict_&_Set.py
+python 11_OOPs_Part-01.py
+python 12_OOPs_Part-02.py
+python 13_File_IO.py
+python 14_Exception_handling.py
 ```
