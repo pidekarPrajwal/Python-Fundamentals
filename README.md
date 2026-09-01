@@ -516,90 +516,53 @@ dog.speak()                          # Output: Woof! Woof!
 **File:** [`13_File_IO.py`](file:///d:/AIML/01_PYTHON/13_File_IO.py)
 
 #### 📝 Description
-Details file handling mechanisms in Python, explaining how to open, read, write, append, and properly close files on the filesystem along with mode options.
+Provides a comprehensive guide to File I/O mechanisms in Python for software engineering and AIML applications. Explains memory persistence (RAM vs Hard Disk), file lifecycle (`open()` and `close()`), context managers (`with open()`), file access modes (`r`, `w`, `a`, `x`, `b`, `t`, `+`), reading techniques (`read()`, `readline()`, `readlines()`, line-by-line streaming), text vs binary files (`rb`/`wb`), cross-platform path management (`os.path`, `pathlib`), I/O exception handling, a real-world AIML metrics logger, and learner practice exercises.
 
-#### 💡 File Modes Summary
-| Mode | Name | Behavior & Description |
-| :--- | :--- | :--- |
-| `'r'` | Read | Default mode. Opens file for reading; throws `FileNotFoundError` if file does not exist. |
-| `'w'` | Write | Opens file for writing. Overwrites existing contents or creates a new file. |
-| `'a'` | Append | Opens file for writing. Appends new data to the end of the file without overwriting existing content. |
-| `'x'` | Exclusive Creation | Creates a new file for writing; fails if the file already exists. |
-| `'b'` | Binary | Binary mode (e.g., `'rb'`, `'wb'`) for non-text files like images or executables. |
-| `'t'` | Text | Default text mode. |
-| `'+'` | Updating | Opens disk file for updating (reading and writing simultaneously like `'r+'` or `'w+'`). |
+#### 💡 File Modes & Core Concepts
+| Mode / Concept | Behavior & Description |
+| :--- | :--- |
+| `'r'` | **Read Mode (Default):** Opens file for reading; raises `FileNotFoundError` if file is missing. |
+| `'w'` | **Write Mode:** Opens file for writing; overwrites existing file contents or creates a new file. |
+| `'a'` | **Append Mode:** Opens file for writing; appends data to the end without overwriting existing content. |
+| `'x'` | **Exclusive Creation:** Creates a new file for writing; fails (`FileExistsError`) if file exists. |
+| `'b'` / `'t'` | **Binary / Text Mode:** Text mode (`'t'`, default) for UTF-8 text vs Binary mode (`'b'`) for raw bytes (`.bin`, `.pkl`, `.pth`). |
+| `'+'` | **Updating Mode:** Opens disk file for simultaneous reading and writing (e.g., `'r+'`, `'w+'`, `'a+'`). |
+| **`with open()`** | **Context Manager (Preferred):** Automatically closes file resources even if runtime exceptions occur. |
+| **Path Handling** | Cross-platform handling using forward slashes `/`, raw strings (`r"..."`), `os.path.join()`, or `pathlib.Path`. |
 
 #### 💻 Code Example
 ```python
-# Writing to a file (overwrites existing file or creates new)
-file = open("data.txt", "w")
-file.write("Python File I/O operations.\n")
-file.close()                        # Always close files after opening!
+import os
+import pathlib
 
-# Appending text to an existing file
-file = open("data.txt", "a")
-file.write("Adding a new line to file.\n")
-file.close()
+# 1. Recommended Practice: Context Manager ('with open')
+with open("training_log.txt", "w") as f:
+    f.write("Epoch 1: Loss = 0.45, Accuracy = 82.5%\n")
 
-# Reading content from a file
-file = open("data.txt", "r")
-content = file.read()
-print(content)
-file.close()
+# 2. Appending Data ('a' mode)
+with open("training_log.txt", "a") as f:
+    f.write("Epoch 2: Loss = 0.21, Accuracy = 93.8%\n")
 
-# Recommended Practice: Using 'with' context manager (auto-closes file)
-with open("data.txt", "r") as f:
-    data = f.read()
-    print("Read via context manager:", data)
+# 3. Line-by-Line File Iteration (Memory-Efficient for large AIML datasets)
+with open("training_log.txt", "r") as f:
+    for line in f:
+        print("Log entry:", line.strip())
+
+# 4. Checking File Existence & Path Operations
+path_obj = pathlib.Path("training_log.txt")
+if path_obj.is_file():
+    print(f"File size: {path_obj.stat().st_size} bytes")
+
+# 5. Handling Common File Errors
+try:
+    with open("missing_dataset.csv", "r") as f:
+        data = f.read()
+except FileNotFoundError as e:
+    print(f"File missing error handled gracefully: {e}")
 ```
 
 ---
 
-### 14. Exception Handling, List Comprehension & JSON
-**File:** [`14_Exception_handling.py`](file:///d:/AIML/01_PYTHON/14_Exception_handling.py)
-
-#### 📝 Description
-Covers robust error handling using `try-except-else-finally` blocks, concise sequence transformations with list comprehensions, and data serialization using the `json` module.
-
-#### 💡 Key Concepts
-- **Exception Handling Blocks:**
-  - `try`: Contains code that might raise an exception.
-  - `except`: Catches and handles specific exceptions without stopping program execution.
-  - `else`: Executes if no exceptions were raised in the `try` block.
-  - `finally`: Executes guaranteed cleanup code regardless of whether an exception occurred.
-- **List Comprehension:** Concise syntax for creating new lists based on existing iterables: `[output_expr for item in iterable if condition]`.
-- **JSON Processing (`json` module):**
-  - `json.loads()`: Parses a JSON string into a Python dictionary.
-  - `json.dumps()`: Serializes a Python dictionary into a JSON formatted string.
-  - `json.load()` / `json.dump()`: Serializes/deserializes directly to/from file streams.
-
-#### 💻 Code Example
-```python
-import json
-
-# 1. Exception Handling
-try:
-    num = int(input("Enter a number: "))
-    result = 10 / num
-except ZeroDivisionError:
-    print("Cannot divide by zero!")
-except ValueError:
-    print("Invalid integer input!")
-else:
-    print("Result is:", result)
-finally:
-    print("Execution finished.")
-
-# 2. List Comprehension
-squares = [i * i for i in range(6)]                  # Output: [0, 1, 4, 9, 16, 25]
-odd_squares = [i * i for i in range(6) if i % 2 != 0] # Output: [1, 9, 25]
-
-# 3. JSON Serialization & Deserialization
-data = {"name": "Prajwal", "subject": "Python"}
-json_string = json.dumps(data)                       # Dict -> JSON string
-parsed_data = json.loads(json_string)                 # JSON string -> Dict
-print(parsed_data["name"])                           # Output: Prajwal
-```
 
 ---
 
