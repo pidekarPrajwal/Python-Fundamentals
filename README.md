@@ -563,6 +563,74 @@ except FileNotFoundError as e:
 
 ---
 
+### 14. Exception Handling, List Comprehension & JSON
+**File:** [`14_Exception_handling.py`](file:///d:/AIML/01_PYTHON/14_Exception_handling.py)
+
+#### 📝 Description
+Covers robust error handling using `try-except-else-finally` blocks, built-in exception types, manually raising exceptions, custom domain-specific exceptions, retained sequence transformations via list comprehensions, and error-safe JSON data processing for resilient AIML pipelines.
+
+#### 💡 Key Concepts & Exception Summary
+- **Exception Control Blocks:**
+  - `try`: Encloses code that might raise a runtime exception.
+  - `except`: Catches and handles specific exception types gracefully without crashing.
+  - `else`: Executes ONLY if NO exception was raised in the `try` block.
+  - `finally`: ALWAYS executes guaranteed cleanup code (closing files, releasing locks).
+  - `raise`: Manually triggers built-in or custom exceptions.
+- **Common Built-In Exceptions Covered:**
+  - `ValueError`: Inappropriate value (e.g., `int("abc")`).
+  - `TypeError`: Incompatible operand types (e.g., `"age: " + 25`).
+  - `ZeroDivisionError`: Division or modulo by zero.
+  - `FileNotFoundError`: Missing file during I/O operations.
+  - `IndexError`: Sequence index out of range.
+  - `KeyError`: Dictionary key lookup failure.
+  - `NameError`: Accessing an undefined variable.
+  - `AttributeError`: Accessing non-existent attribute/method on an object.
+- **Custom Exceptions:** Domain-specific exceptions inheriting from `Exception` (e.g., `class ConfigValidationError(Exception): pass`).
+- **List Comprehensions:** Concise list creation syntax: `[output_expr for item in iterable if condition]`.
+- **JSON Processing (`json` module):** `json.loads()`, `json.dumps()`, `json.load()`, `json.dump()`, and catching `json.JSONDecodeError`.
+
+#### 💻 Code Example
+```python
+import json
+
+# 1. Full Exception Control Flow (try - except - else - finally)
+try:
+    value = float("12.5")
+    result = 100 / value
+except ValueError:
+    print("Invalid numeric string!")
+except ZeroDivisionError:
+    print("Division by zero!")
+else:
+    print(f"Computation successful! Result: {result:.2f}")
+finally:
+    print("Cleanup step complete.")
+
+# 2. Custom Exception & Raising Errors
+class EmptyDatasetError(Exception):
+    """Raised when an loaded dataset contains 0 records."""
+    pass
+
+def check_dataset(samples):
+    if len(samples) == 0:
+        raise EmptyDatasetError("Dataset is empty!")
+    return len(samples)
+
+try:
+    check_dataset([])
+except EmptyDatasetError as e:
+    print(f"Caught custom exception: {e}")
+
+# 3. Retained List Comprehension & JSON Handling
+odd_squares = [i * i for i in range(1, 6) if i % 2 != 0] # Output: [1, 9, 25]
+
+# Safe JSON Decode Handling
+try:
+    config = json.loads('{"model": "ResNet50", "epochs": 50}')
+    print("Model:", config["model"])
+except json.JSONDecodeError as e:
+    print("Invalid JSON structure!", e)
+```
 
 ---
 
