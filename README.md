@@ -26,7 +26,7 @@ A structured, topic-wise reference guide to Python programming concepts, featuri
 ## 📑 Module Overview & Code Reference
 
 ### 1. First Program, Data Types & PEP 8 Style Guide
-**File:** [`01_First_program.py`](file:///d:/AIML/01_PYTHON/01_First_program.py)
+**File:** [`01_First_program.py`]
 
 #### 📝 Description
 Covers Python syntax basics including outputting text using `print()`, escape sequences, fundamental built-in data types, Python keywords, comment styles, and Python's official PEP 8 style guide for naming conventions.
@@ -65,7 +65,7 @@ TOTAL_PRICE = 100       # UPPER_CASE (constant definition)
 ---
 
 ### 2. Operators & Operator Precedence
-**File:** [`02_operators.py`](file:///d:/AIML/01_PYTHON/02_operators.py)
+**File:** [`02_operators.py`]
 
 #### 📝 Description
 Explores the four major categories of Python operators (Arithmetic, Relational, Assignment, Logical) along with operator precedence rules (similar to BODMAS) for expression evaluation.
