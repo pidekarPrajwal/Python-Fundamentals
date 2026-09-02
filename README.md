@@ -1,4 +1,4 @@
-# Python Programming Fundamentals 🐍
+# ----- Python Programming Fundamentals 🐍 ------
 
 A structured, topic-wise reference guide to Python programming concepts, featuring descriptions, key concepts, and code examples for each module.
 
